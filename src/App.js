@@ -2,11 +2,10 @@ import {useState, useEffect} from 'react'
 
 import './App.css';
 
-import image1 from './assests/image1.png'
-import image2 from './assests/image2.png'
-
 import axios from 'axios'
 import Pagination from './components/Pagination';
+import Header from './components/Header'
+import CharactersCard from './components/CharactersCard'
 
 // https://gateway.marvel.com/v1/public/characters?ts=1&apikey=89c5bb6f000ff89c6b3bfd1804a55184&hash=d8e15a485cc807f99e27672c604d81c5&limit=100&offset=0
 
@@ -16,34 +15,12 @@ function App() {
   const [offset, setOffset] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageCount, setPageCount] = useState(78)
-  const [total, setTotal] = useState(78)
+  const [total] = useState(78)
 
   
   useEffect(() => {
     getData(currentPage);
   }, [currentPage])
-
-  
-/* HANDLE FUNCTIONS */  
-const handlePrevButton = () => {
-  if (offset >= 20){
-    setOffset(offset - 20);
-    setCurrentPage(currentPage - 1); 
-    
-  }
-}
-
-const handleNextButton = () => {
-  setOffset(offset + 20);
-  setCurrentPage(currentPage + 1);
-  
-}
-
-const handleChangePage = (page) => {
-  setOffset((page - 1) * 20);
-  setCurrentPage(page);
-  console.log("hangleChangePage", page);
-}
 
 
 const setPage = (value) => {
@@ -59,9 +36,6 @@ const setPage = (value) => {
     
   }
 };
-
-
-
 
 // request to marvel.api
   const getData = (currentPage) => {
@@ -90,35 +64,22 @@ const setPage = (value) => {
   });
   }
 }
+console.log(list);
 
   return (
-    /* HEADER START */
+    
     <div className="main">
-        <div className="header">
-            <div className="header-background">
-                <img className="header-background-img" src={image1} alt="" />                
-            </div>
-            <div className="header-logo">
-                <img className="header-logo-img" src={image2} alt="" />
-            </div>
-        </div>
-        {/* HEADER END */}
+        <Header />
+        
 
         {/* CONTENT START */}
+        
         <div className="container">
           {            
             list.length > 0 &&
-            list?.map((item, index) => (
+            list.map((item, index) => (
+              <CharactersCard item={item} key={index} />
               
-              <div key={index} className="character-rectangle">
-                <div className="top-line"></div>
-                <div className="character-image-wrap">
-                  <img className='character-image' src={`${item.thumbnail.path}/portrait_xlarge.${item.thumbnail.extension}`} alt="" />
-                </div>
-                <div className="character-name">
-                  <p>{item.name}</p>
-              </div>
-              </div>
             )) 
           }
 
@@ -126,38 +87,7 @@ const setPage = (value) => {
           {/* CONTENT END */}
 
         {/* PAGINATION START */}
-        {/* currentPage, handlePrevButton */}
-        <Pagination total={total} currentPage={currentPage} click={setPage}/>
-        {/* <div className="pagination">
-            {
-              currentPage == 1 
-              ? <div></div> 
-              : (
-              <div onClick={handlePrevButton} className="previous-page">
-                {"<"}
-              </div>
-            )
-            }
-            <div className="pages">
-              { 
-                getPaginationGroup().map((page, index) => (
-                  <div key={index} className="page-number">
-                    <div onClick={(e) => {handleChangePage(e.target.textContent) }} className={`${currentPage  == page ? 'active-page' : null}`}>{page}</div>
-                  </div>
-                ))                
-              }                            
-            </div>            
-            {
-              currentPage == 78 
-              ? <div></div>
-              : 
-              (
-                <div onClick={handleNextButton} className="next-page">
-                  {">"}
-                </div>
-              )
-            }
-        </div> */}
+        <Pagination total={total} currentPage={currentPage} click={setPage}/>        
         {/* PAGINATION END */}
     </div>
   );
