@@ -6,6 +6,7 @@ import image1 from './assests/image1.png'
 import image2 from './assests/image2.png'
 
 import axios from 'axios'
+import Pagination from './components/Pagination';
 
 // https://gateway.marvel.com/v1/public/characters?ts=1&apikey=89c5bb6f000ff89c6b3bfd1804a55184&hash=d8e15a485cc807f99e27672c604d81c5&limit=100&offset=0
 
@@ -14,7 +15,8 @@ function App() {
   const [list, setList] = useState([]);
   const [offset, setOffset] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageCount, setPageCount] = useState()
+  const [pageCount, setPageCount] = useState(78)
+  const [total, setTotal] = useState(78)
 
   
   useEffect(() => {
@@ -43,32 +45,21 @@ const handleChangePage = (page) => {
   console.log("hangleChangePage", page);
 }
 
-/* THIS FUNC. IS CREAT PAGE NUMBERS IN PAGINATION */
-const getPaginationGroup = () => {
-  let start = ((currentPage - 1) / 5) * 5;
 
-  let arr = new Array(3).fill().map((_, index) => {
-    if (start === 78) {
-      return "" 
-    } 
-    return start + index + 1
-  });
-
-  
-  if (start >= 4 && start < 73) {
-    return [1, "...", start - 1, start, ...arr, "...", pageCount]
-
-  } else if (start < 4) {
-    return [1, 2, 3, 4, 5, "...", 78]
-
-  } else if (start >= 73 && start <= 78) {
-    return [1, "...", pageCount- 5, pageCount- 4, pageCount-3, pageCount-2, pageCount-1, pageCount]
-
-  } else {
-    return [...arr, "...", pageCount]
-
+const setPage = (value) => {
+  if (value.type === "next" && currentPage < total) {
+    setCurrentPage((x) => x + 1);
+    setOffset(offset + 20);
+  } else if (value.type === "prev" && currentPage > 0) {
+    setCurrentPage((x) => x - 1);
+    setOffset(offset - 20);
+  } else if (value.type === "add") {
+    setOffset((currentPage - 1) * 20);
+    setCurrentPage(value.number);
+    
   }
 };
+
 
 
 
@@ -135,7 +126,9 @@ const getPaginationGroup = () => {
           {/* CONTENT END */}
 
         {/* PAGINATION START */}
-        <div className="pagination">
+        {/* currentPage, handlePrevButton */}
+        <Pagination total={total} currentPage={currentPage} click={setPage}/>
+        {/* <div className="pagination">
             {
               currentPage == 1 
               ? <div></div> 
@@ -164,7 +157,7 @@ const getPaginationGroup = () => {
                 </div>
               )
             }
-        </div>
+        </div> */}
         {/* PAGINATION END */}
     </div>
   );
