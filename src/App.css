@@ -1,0 +1,169 @@
+* {
+  padding: 0;
+  margin: 0;    
+}
+
+body {
+  background-color: rgba(34, 34, 34, 1);
+  font-family: 'Roboto', sans-serif;
+  color: white;
+}
+
+.header-background-img,
+.header-logo,
+.top-line,
+.character-image-wrap {
+  position: relative;
+
+}
+
+.container,
+.character-rectangle,
+.pagination,
+.pages {
+  display: flex;
+}
+
+.header-background-img,
+.header-logo-img,
+.character-image,
+.character-name p {
+  width: 100%;
+}
+
+.header-background-img {
+  max-height: 700px;
+  bottom: 60px;
+
+}
+.header-logo {
+  max-height: 131px;
+  width: 50%;
+  max-width: 439px;
+  display: block;
+  margin: 0 auto;
+  bottom: 211px;
+}
+
+.header-logo-img {
+  height: 130px;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 900px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.character-rectangle {
+  width: 181px;
+  height: 300px;
+  border: 1px solid rgb(255, 255, 255);
+  margin: 0 0 50px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.top-line {
+  width: 90%;
+  height: 1px;
+  background-color: rgb(255, 255, 255);
+  bottom: 25px;
+}
+
+.character-image-wrap {
+  width: 90%;
+  bottom: 17px;
+}
+
+.character-name p {
+  font-size: 13px;
+  text-align: center;
+}
+
+.pagination {
+  justify-content: flex-end;
+  max-width: 900px;
+  margin: 0 auto;
+  color: #7E7E7E;
+  font-size: 16px;
+}
+.previous-page,
+.next-page {
+  text-align: center;
+  font-size: 36px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.pages div {
+  padding: 10px;
+  text-align: center;
+  margin: 0 6px;
+  cursor: pointer;
+}
+
+.active-page {
+  color: black;
+  background-color: #7E7E7E;
+  border-radius: 20px;
+}
+
+
+/* MEDIA QUERIES */
+
+@media screen and (max-width: 768px) {
+  .header-background-img {
+      bottom: 35px;
+  }
+  .header-logo {
+      bottom: 161px;
+  }
+  .header-logo-img {
+      height: 100px;
+  }  
+  .container,
+  .pagination {
+      max-width: 600px;
+  }
+  .pagination {            
+      justify-content: center;
+  }
+
+}
+
+@media screen and (max-width: 560px) {
+  .header-background-img {
+      bottom: 28px;
+  }
+  .header-logo {
+      bottom: 122px;
+  }
+  .header-logo-img {
+      height: 88px;
+  }
+  .container,
+  .pagination {
+      max-width: 360px;
+      justify-content: center;
+  }
+}
+
+@media screen and (max-width:460px) {
+  .main {
+      min-width: 460px;
+  }
+  
+  .header-background-img {
+      bottom: 22px;
+      min-width: 460px;
+  }
+  .header-logo {
+      bottom: 93px;
+  }
+
+  .header-logo-img {
+      height: 70px;
+  }
+}
